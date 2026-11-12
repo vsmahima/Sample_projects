@@ -1,0 +1,600 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers - KERALA BANK</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        body {
+            background: #f4f7fb;
+            font-family: Arial, sans-serif;
+        }
+
+        .customer-container {
+            padding: 35px;
+        }
+
+        /* Banner */
+        .customer-banner {
+            background: linear-gradient(120deg, #103b70, #2678b9);
+            color: white;
+            padding: 40px 35px;
+            border-radius: 14px;
+            margin-bottom: 30px;
+        }
+
+        .customer-banner h1 {
+            font-size: 34px;
+            font-weight: 700;
+        }
+
+        .customer-banner p {
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .banner-icon {
+            font-size: 100px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        /* Summary Cards */
+        .summary-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+            height: 100%;
+        }
+
+        .summary-card i {
+            font-size: 32px;
+            color: #1769aa;
+        }
+
+        .summary-card h3 {
+            color: #193d60;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .summary-card p {
+            color: #718096;
+            margin-bottom: 0;
+            font-size: 14px;
+        }
+
+        /* Section */
+        .section-title {
+            color: #173d64;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        /* Main Card */
+        .content-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #193d60;
+            font-size: 14px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 7px;
+            padding: 10px;
+        }
+
+        .btn-primary {
+            background: #1769aa;
+            border-color: #1769aa;
+        }
+
+        .btn-primary:hover {
+            background: #103b70;
+            border-color: #103b70;
+        }
+
+        .table thead th {
+            background: #edf4fb;
+            color: #193d60;
+            white-space: nowrap;
+        }
+
+        .table td {
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .table-responsive {
+            border-radius: 8px;
+        }
+
+        @media(max-width: 768px) {
+            .customer-container {
+                padding: 15px;
+            }
+
+            .customer-banner {
+                padding: 30px 20px;
+            }
+
+            .customer-banner h1 {
+                font-size: 27px;
+            }
+
+            .banner-icon {
+                font-size: 70px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container-fluid customer-container">
+
+    <!-- Banner -->
+    <section class="customer-banner">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-8">
+                <h1>Customer Management</h1>
+
+                <p class="mb-0">
+                    Manage customer information efficiently.
+                    Register new customers, maintain personal details
+                    and access customer records through a centralized
+                    banking management system.
+                </p>
+            </div>
+
+            <div class="col-lg-4 text-center mt-3 mt-lg-0">
+                <i class="bi bi-people banner-icon"></i>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Customer Summary -->
+    <section class="mb-4">
+
+        <h4 class="section-title">Customer Overview</h4>
+
+        <div class="row g-4">
+
+            <div class="col-lg-4 col-md-6">
+                <div class="summary-card">
+                    <i class="bi bi-people-fill"></i>
+                    <h3 id="totalCustomers">3</h3>
+                    <p>Total Customers</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="summary-card">
+                    <i class="bi bi-person-check-fill"></i>
+                    <h3 id="activeCustomers">3</h3>
+                    <p>Active Customers</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6">
+                <div class="summary-card">
+                    <i class="bi bi-person-plus-fill"></i>
+                    <h3 id="newCustomers">0</h3>
+                    <p>New Customers Added</p>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Add Customer Form -->
+    <section class="mb-4">
+
+        <div class="content-card">
+
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+
+                <h4 class="section-title mb-0">
+                    <i class="bi bi-person-plus"></i>
+                    Register New Customer
+                </h4>
+
+                <span class="badge bg-primary">Customer Registration</span>
+
+            </div>
+
+            <form id="customerForm">
+
+                <div class="row g-3">
+
+                    <div class="col-md-6">
+                        <label class="form-label">Customer Name</label>
+                        <input type="text" id="customerName"
+                            class="form-control"
+                            placeholder="Enter customer name" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Customer ID</label>
+                        <input type="text" id="customerId"
+                            class="form-control"
+                            placeholder="Enter customer ID" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Email Address</label>
+                        <input type="email" id="email"
+                            class="form-control"
+                            placeholder="Enter email address" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" id="phone"
+                            class="form-control"
+                            placeholder="Enter phone number"
+                            pattern="[0-9]{10}" maxlength="10" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Date of Birth</label>
+                        <input type="date" id="dob"
+                            class="form-control" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Gender</label>
+                        <select id="gender" class="form-select" required>
+                            <option value="">Select Gender</option>
+                            <option>Male</option>
+                            <option>Female</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Address</label>
+                        <input type="text" id="address"
+                            class="form-control"
+                            placeholder="Enter address" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label">Account Type</label>
+                        <select id="accountType" class="form-select" required>
+                            <option value="">Select Account Type</option>
+                            <option>Savings Account</option>
+                            <option>Current Account</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 mt-4">
+
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-person-plus"></i>
+                            Add Customer
+                        </button>
+
+                        <button type="reset" class="btn btn-outline-secondary px-4">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                            Reset
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- Customer Records -->
+    <section class="mb-4">
+
+        <div class="content-card">
+
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+
+                <h4 class="section-title mb-0">
+                    <i class="bi bi-table"></i>
+                    Customer Records
+                </h4>
+
+                <input type="text" id="searchCustomer"
+                    class="form-control"
+                    style="max-width: 280px;"
+                    placeholder="Search customers...">
+
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Customer Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Account Type</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="customerTable">
+
+                        <tr>
+                            <td>CUS1001</td>
+                            <td>Arun Kumar</td>
+                            <td>arun@gmail.com</td>
+                            <td>9876543210</td>
+                            <td>Savings</td>
+                            <td><span class="badge bg-success">Active</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary"
+                                    onclick="viewCustomer(this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    onclick="deleteCustomer(this)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>CUS1002</td>
+                            <td>Priya Nair</td>
+                            <td>priya@gmail.com</td>
+                            <td>9876543211</td>
+                            <td>Current</td>
+                            <td><span class="badge bg-success">Active</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary"
+                                    onclick="viewCustomer(this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    onclick="deleteCustomer(this)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>CUS1003</td>
+                            <td>Rahul Menon</td>
+                            <td>rahul@gmail.com</td>
+                            <td>9876543212</td>
+                            <td>Savings</td>
+                            <td><span class="badge bg-success">Active</span></td>
+                            <td>
+                                <button class="btn btn-sm btn-outline-primary"
+                                    onclick="viewCustomer(this)">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    onclick="deleteCustomer(this)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <p class="text-muted small mb-0 mt-2" id="recordCount">
+                Showing 3 customer records
+            </p>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- Customer Details Modal -->
+<div class="modal fade" id="customerModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header text-white" style="background:#103b70;">
+                <h5 class="modal-title">Customer Details</h5>
+                <button type="button" class="btn-close btn-close-white"
+                    data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body" id="customerDetails"></div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+
+    const form = document.getElementById("customerForm");
+    const table = document.getElementById("customerTable");
+    let newCustomerCount = 0;
+
+    function updateSummary() {
+        const rows = Array.from(table.querySelectorAll("tr"))
+            .filter(row => row.cells.length > 1);
+
+        document.getElementById("totalCustomers").textContent = rows.length;
+
+        document.getElementById("activeCustomers").textContent =
+            rows.filter(row =>
+                row.cells[5].textContent.trim() === "Active"
+            ).length;
+
+        document.getElementById("newCustomers").textContent =
+            newCustomerCount;
+
+        document.getElementById("recordCount").textContent =
+            "Showing " + rows.filter(row => row.style.display !== "none").length
+            + " customer records";
+    }
+
+    // Add Customer
+    form.addEventListener("submit", function(e) {
+
+        e.preventDefault();
+
+        const id = document.getElementById("customerId").value.trim();
+
+        const duplicate = Array.from(table.querySelectorAll("tr"))
+            .some(row => row.cells[0]?.textContent.trim() === id);
+
+        if (duplicate) {
+            alert("Customer ID already exists!");
+            return;
+        }
+
+        const name = document.getElementById("customerName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const account = document.getElementById("accountType").value;
+
+        const row = table.insertRow();
+
+        [id, name, email, phone, account.replace(" Account", ""),
+            "Active"].forEach(value => {
+                const cell = row.insertCell();
+                cell.textContent = value;
+            });
+
+        const actionCell = row.insertCell();
+
+        actionCell.innerHTML = `
+            <button class="btn btn-sm btn-outline-primary"
+                onclick="viewCustomer(this)">
+                <i class="bi bi-eye"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-danger"
+                onclick="deleteCustomer(this)">
+                <i class="bi bi-trash"></i>
+            </button>
+        `;
+
+        newCustomerCount++;
+
+        form.reset();
+        updateSummary();
+        alert("Customer added successfully!");
+
+    });
+
+
+    // Search Customer
+    document.getElementById("searchCustomer")
+        .addEventListener("input", function() {
+
+            const search = this.value.toLowerCase();
+
+            Array.from(table.querySelectorAll("tr")).forEach(row => {
+
+                row.style.display =
+                    row.textContent.toLowerCase().includes(search)
+                    ? "" : "none";
+
+            });
+
+            updateSummary();
+
+        });
+
+
+    // View Customer
+    function viewCustomer(button) {
+
+        const row = button.closest("tr");
+        const cells = row.cells;
+
+        document.getElementById("customerDetails").innerHTML = `
+            <p><strong>Customer ID:</strong> ${escapeHTML(cells[0].textContent)}</p>
+            <p><strong>Name:</strong> ${escapeHTML(cells[1].textContent)}</p>
+            <p><strong>Email:</strong> ${escapeHTML(cells[2].textContent)}</p>
+            <p><strong>Phone:</strong> ${escapeHTML(cells[3].textContent)}</p>
+            <p><strong>Account Type:</strong> ${escapeHTML(cells[4].textContent)}</p>
+            <p><strong>Status:</strong> ${escapeHTML(cells[5].textContent)}</p>
+        `;
+
+        new bootstrap.Modal(
+            document.getElementById("customerModal")
+        ).show();
+
+    }
+
+    function escapeHTML(value) {
+        return value.replace(/[&<>"']/g, char => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+        })[char]);
+    }
+
+
+    // Delete Customer
+    function deleteCustomer(button) {
+
+        if (confirm("Are you sure you want to delete this customer?")) {
+
+            button.closest("tr").remove();
+            updateSummary();
+
+        }
+
+    }
+
+</script>
+
+</body>
+</html>
+{% endblock %}

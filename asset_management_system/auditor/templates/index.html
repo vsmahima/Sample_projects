@@ -1,0 +1,274 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Management System</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #263445;
+        }
+
+        .main-container {
+            width: 100%;
+            min-height: 100vh;
+            padding: 50px 7%;
+        }
+
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            background: linear-gradient(120deg, #173b65, #2876a8);
+            color: white;
+            padding: 55px 45px;
+            border-radius: 15px;
+            margin-bottom: 35px;
+        }
+
+        .welcome-content h1 {
+            font-size: 34px;
+            margin-bottom: 15px;
+        }
+
+        .welcome-content p {
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 550px;
+            color: #e0edf8;
+        }
+
+        .login-btn {
+            background: white;
+            color: #174c78;
+            padding: 13px 30px;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+            white-space: nowrap;
+            transition: 0.3s;
+        }
+
+        .login-btn:hover {
+            background: #e4edf5;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #173b65;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+            transition: 0.3s;
+            border: 1px solid #edf0f4;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.1);
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            color: #214d76;
+            margin-bottom: 12px;
+            font-size: 19px;
+        }
+
+        .card p {
+            color: #718096;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .card a {
+            color: #2474ad;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        .info-section {
+            margin-top: 40px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 5px solid #2876a8;
+        }
+
+        .info-section h2 {
+            color: #173b65;
+            margin-bottom: 12px;
+        }
+
+        .info-section p {
+            color: #718096;
+            line-height: 1.7;
+        }
+
+        @media(max-width: 900px) {
+            .card-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media(max-width: 600px) {
+            .main-container {
+                padding: 25px 5%;
+            }
+
+            .welcome-section {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 35px 25px;
+            }
+
+            .welcome-content h1 {
+                font-size: 27px;
+            }
+
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="main-container">
+
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+
+            <div class="welcome-content">
+                <h1>Asset Management System</h1>
+
+                <p>
+                    Manage, monitor and maintain your organization's
+                    assets efficiently. Keep track of asset allocation,
+                    availability and maintenance in one place.
+                </p>
+            </div>
+
+            <!--<a href="login.html" class="login-btn">Login</a>-->
+
+        </section>
+
+        <!-- Main Features -->
+        <h2 class="section-title">Our Services</h2>
+
+        <section class="card-container">
+
+            <div class="card">
+                <div class="card-icon">📦</div>
+                <h3>Asset Registration</h3>
+                <p>
+                    Register new assets and maintain complete
+                    information about organizational resources.
+                </p>
+                <a href="asset-registration.html">Explore More →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📋</div>
+                <h3>Asset Allocation</h3>
+                <p>
+                    Allocate assets to employees or departments
+                    and monitor their usage.
+                </p>
+                <a href="asset-allocation.html">Explore More →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🔧</div>
+                <h3>Maintenance</h3>
+                <p>
+                    Track asset repairs, maintenance schedules
+                    and service history.
+                </p>
+                <a href="maintenance.html">Explore More →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Asset Reports</h3>
+                <p>
+                    View asset details, allocation reports
+                    and overall asset status.
+                </p>
+                <a href="reports.html">Explore More →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">👥</div>
+                <h3>Employee Management</h3>
+                <p>
+                    Manage employee details and track
+                    assets assigned to each employee.
+                </p>
+                <a href="employees.html">Explore More →</a>
+            </div>
+
+            <div class="card">
+                <div class="card-icon">🔍</div>
+                <h3>Asset Tracking</h3>
+                <p>
+                    Check asset availability, location
+                    and current usage status.
+                </p>
+                <a href="asset-tracking.html">Explore More →</a>
+            </div>
+
+        </section>
+
+        <!-- About Section -->
+        <section class="info-section">
+            <h2>About Our System</h2>
+
+            <p>
+                The Asset Management System is designed to simplify
+                the process of managing organizational assets.
+                It helps maintain accurate records, improve asset
+                utilization, reduce manual work and ensure efficient
+                tracking of resources.
+            </p>
+        </section>
+
+    </main>
+
+</body>
+</html>
+{% endblock %}

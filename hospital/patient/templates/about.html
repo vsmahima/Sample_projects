@@ -1,0 +1,343 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - City Hospital</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5fafa;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        /* Page Banner */
+        .page-banner {
+            background: linear-gradient(120deg, #087f8c, #40bfc0);
+            color: white;
+            text-align: center;
+            padding: 55px 20px;
+        }
+
+        .page-banner h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .page-banner p {
+            font-size: 17px;
+        }
+
+        /* Common Sections */
+        section {
+            padding: 50px 8%;
+        }
+
+        .section-title {
+            color: #087f8c;
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Hospital Introduction */
+        .about-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 35px;
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-content h2 {
+            color: #087f8c;
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+
+        .about-content p {
+            margin-bottom: 15px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-height: 260px;
+            background: #d9f5f3;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 120px;
+        }
+
+        /* Mission and Vision */
+        .mission-section {
+            background: #e5f6f5;
+        }
+
+        .mission-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .mission-card {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 12px #ddd;
+            text-align: center;
+        }
+
+        .mission-card .icon {
+            font-size: 45px;
+            margin-bottom: 12px;
+        }
+
+        .mission-card h3 {
+            color: #087f8c;
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        /* Why Choose Us */
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 3px 12px #ddd;
+        }
+
+        .feature-card .icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .feature-card h3 {
+            color: #087f8c;
+            margin-bottom: 10px;
+        }
+
+        /* Values */
+        .values-section {
+            background: #e5f6f5;
+            text-align: center;
+        }
+
+        .values-section p {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-container {
+                flex-direction: column;
+            }
+
+            .about-image {
+                width: 100%;
+                min-height: 200px;
+            }
+
+            .mission-container,
+            .features-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .page-banner h1 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .mission-container,
+            .features-container {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 35px 6%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <h1>About Us</h1>
+        <p>Learn more about kims Hospital and our commitment to your health.</p>
+    </section>
+
+    <!-- Hospital Introduction -->
+    <section>
+        <div class="about-container">
+
+            <div class="about-content">
+                <h2>Welcome to kims Hospital</h2>
+
+                <p>
+                    kims Hospital is dedicated to providing quality healthcare
+                    in a safe, comfortable, and caring environment. We believe
+                    that every patient deserves respect, attention, and
+                    compassionate medical care.
+                </p>
+
+                <p>
+                    Our goal is to support individuals and families through
+                    reliable healthcare services, preventive care, and
+                    professional medical guidance.
+                </p>
+
+                <p>
+                    We strive to make every patient's experience as
+                    comfortable and reassuring as possible.
+                </p>
+            </div>
+
+            <div class="about-image">
+                🏥
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Mission and Vision -->
+    <section class="mission-section">
+
+        <h2 class="section-title">Our Mission & Vision</h2>
+
+        <div class="mission-container">
+
+            <div class="mission-card">
+                <div class="icon">🎯</div>
+                <h3>Our Mission</h3>
+                <p>
+                    To provide accessible, compassionate, and quality
+                    healthcare while prioritizing patient safety,
+                    dignity, and well-being.
+                </p>
+            </div>
+
+            <div class="mission-card">
+                <div class="icon">🌟</div>
+                <h3>Our Vision</h3>
+                <p>
+                    To be a trusted healthcare provider recognized for
+                    patient-centered care, professional excellence,
+                    and continuous improvement.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section>
+
+        <h2 class="section-title">Why Choose Us?</h2>
+
+        <div class="features-container">
+
+            <div class="feature-card">
+                <div class="icon">👨‍⚕️</div>
+                <h3>Professional Care</h3>
+                <p>
+                    Medical guidance and care focused on individual
+                    patient needs.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">❤️</div>
+                <h3>Patient First</h3>
+                <p>
+                    We value every patient and aim to provide a
+                    respectful and supportive experience.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🩺</div>
+                <h3>Quality Services</h3>
+                <p>
+                    Healthcare services designed to support treatment,
+                    prevention, and overall well-being.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🤝</div>
+                <h3>Compassion</h3>
+                <p>
+                    We believe kindness, understanding, and trust are
+                    essential parts of healthcare.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🔬</div>
+                <h3>Modern Approach</h3>
+                <p>
+                    We aim to follow appropriate medical practices and
+                    continually improve our services.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">👪</div>
+                <h3>Family Care</h3>
+                <p>
+                    Supporting the health and well-being of individuals
+                    and families across different stages of life.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Core Values -->
+    <section class="values-section">
+
+        <h2 class="section-title">Our Core Values</h2>
+
+        <p>
+            Our work is guided by compassion, integrity, respect,
+            responsibility, patient safety, and a commitment to quality.
+            We aim to build lasting trust with every patient and family
+            through honest communication and responsible care.
+        </p>
+
+    </section>
+
+</body>
+</html>
+
+
+
+
+{% endblock %}

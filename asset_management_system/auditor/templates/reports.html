@@ -1,0 +1,459 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Asset Management - Reports</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #26384a;
+}
+
+.container {
+    padding: 40px 7%;
+}
+
+.page-title {
+    color: #173b65;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    color: #718096;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+/* Summary Cards */
+.summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    border-left: 4px solid #2876a8;
+}
+
+.card h3 {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 12px;
+}
+
+.card h2 {
+    font-size: 27px;
+    color: #173b65;
+}
+
+/* Report Section */
+.report-box {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    margin-bottom: 25px;
+}
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.report-header h2 {
+    color: #173b65;
+    font-size: 20px;
+}
+
+button {
+    background: #2876a8;
+    color: white;
+    border: none;
+    padding: 10px 17px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+button:hover {
+    background: #173b65;
+}
+
+.filters {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.filters input,
+.filters select {
+    padding: 10px;
+    border: 1px solid #d5dfeb;
+    border-radius: 6px;
+    outline: none;
+    background: white;
+}
+
+.filters input {
+    flex: 1;
+    min-width: 180px;
+}
+
+.filters select {
+    min-width: 150px;
+}
+
+/* Table */
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+th {
+    background: #eaf2f9;
+    color: #173b65;
+    padding: 13px;
+    text-align: left;
+    font-size: 13px;
+}
+
+td {
+    padding: 13px;
+    border-bottom: 1px solid #edf0f4;
+    font-size: 13px;
+}
+
+tr:hover {
+    background: #f8fbff;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.available {
+    background: #e0f5e9;
+    color: #21834c;
+}
+
+.allocated {
+    background: #e3efff;
+    color: #2865a8;
+}
+
+.maintenance {
+    background: #fff0d9;
+    color: #b7791f;
+}
+
+.report-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.secondary-btn {
+    background: #65a9c9;
+}
+
+.no-data {
+    text-align: center;
+    color: #718096;
+    padding: 25px;
+}
+
+/* Responsive */
+@media(max-width: 900px) {
+    .summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 550px) {
+    .container {
+        padding: 25px 5%;
+    }
+
+    .summary {
+        grid-template-columns: 1fr;
+    }
+
+    .page-title {
+        font-size: 23px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1 class="page-title">Reports & Analytics</h1>
+    <p class="subtitle">
+        View and monitor asset records, allocation details and maintenance activities.
+    </p>
+
+    <!-- Summary Cards -->
+    <div class="summary">
+
+        <div class="card">
+            <h3>Total Assets</h3>
+            <h2 id="totalAssets">120</h2>
+        </div>
+
+        <div class="card">
+            <h3>Allocated Assets</h3>
+            <h2 id="allocatedAssets">75</h2>
+        </div>
+
+        <div class="card">
+            <h3>Available Assets</h3>
+            <h2 id="availableAssets">35</h2>
+        </div>
+
+        <div class="card">
+            <h3>Under Maintenance</h3>
+            <h2 id="maintenanceAssets">10</h2>
+        </div>
+
+    </div>
+
+    <!-- Asset Status Report -->
+    <div class="report-box">
+
+        <div class="report-header">
+            <h2>Asset Status Report</h2>
+
+            <div class="report-actions">
+                <button onclick="downloadCSV()">Export CSV</button>
+                <button class="secondary-btn" onclick="window.print()">Print Report</button>
+            </div>
+        </div>
+
+        <div class="filters">
+            <input type="text" id="searchInput"
+                   placeholder="Search asset ID or name..."
+                   onkeyup="filterTable()">
+
+            <select id="statusFilter" onchange="filterTable()">
+                <option value="">All Status</option>
+                <option value="Available">Available</option>
+                <option value="Allocated">Allocated</option>
+                <option value="Maintenance">Maintenance</option>
+            </select>
+        </div>
+
+        <div class="table-wrapper">
+            <table id="assetTable">
+                <thead>
+                    <tr>
+                        <th>Asset ID</th>
+                        <th>Asset Name</th>
+                        <th>Category</th>
+                        <th>Location</th>
+                        <th>Purchase Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>AST001</td>
+                        <td>Desktop Computer</td>
+                        <td>IT Equipment</td>
+                        <td>Office</td>
+                        <td>12-01-2025</td>
+                        <td><span class="status allocated">Allocated</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>AST002</td>
+                        <td>Office Printer</td>
+                        <td>Electronics</td>
+                        <td>Room 101</td>
+                        <td>18-02-2025</td>
+                        <td><span class="status available">Available</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>AST003</td>
+                        <td>Projector</td>
+                        <td>Electronics</td>
+                        <td>Conference Hall</td>
+                        <td>05-03-2025</td>
+                        <td><span class="status maintenance">Maintenance</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>AST004</td>
+                        <td>Laptop</td>
+                        <td>IT Equipment</td>
+                        <td>Admin Office</td>
+                        <td>10-04-2025</td>
+                        <td><span class="status allocated">Allocated</span></td>
+                    </tr>
+
+                    <tr>
+                        <td>AST005</td>
+                        <td>Office Chair</td>
+                        <td>Furniture</td>
+                        <td>Room 102</td>
+                        <td>20-05-2025</td>
+                        <td><span class="status available">Available</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p id="noResults" class="no-data" style="display:none;">
+            No matching records found.
+        </p>
+
+    </div>
+
+    <!-- Report Information -->
+    <div class="report-box">
+
+        <div class="report-header">
+            <h2>Report Information</h2>
+        </div>
+
+        <p style="color:#718096; font-size:14px; line-height:1.8;">
+            This section provides an overview of the organization's asset
+            management activities. Reports can be used to monitor asset
+            availability, employee allocations, asset usage and maintenance
+            requirements.
+        </p>
+
+        <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+
+            <button onclick="showReport('Asset Allocation Report')">
+                Allocation Report
+            </button>
+
+            <button onclick="showReport('Maintenance Report')">
+                Maintenance Report
+            </button>
+
+            <button onclick="showReport('Asset Inventory Report')">
+                Inventory Report
+            </button>
+
+        </div>
+
+        <p id="reportMessage"
+           style="margin-top:15px; color:#2876a8; font-size:14px;">
+        </p>
+
+    </div>
+
+</div>
+
+<script>
+
+// Search and filter
+function filterTable() {
+
+    let search = document.getElementById("searchInput")
+        .value.toLowerCase();
+
+    let status = document.getElementById("statusFilter")
+        .value.toLowerCase();
+
+    let rows = document.querySelectorAll("#assetTable tbody tr");
+    let visibleCount = 0;
+
+    rows.forEach(row => {
+
+        let text = row.innerText.toLowerCase();
+        let rowStatus = row.cells[5].innerText.toLowerCase();
+
+        let matchesSearch = text.includes(search);
+        let matchesStatus = !status || rowStatus === status;
+
+        if (matchesSearch && matchesStatus) {
+            row.style.display = "";
+            visibleCount++;
+        } else {
+            row.style.display = "none";
+        }
+    });
+
+    document.getElementById("noResults").style.display =
+        visibleCount === 0 ? "block" : "none";
+}
+
+// Export table as CSV
+function downloadCSV() {
+
+    let rows = document.querySelectorAll("#assetTable tr");
+    let csv = [];
+
+    rows.forEach(row => {
+
+        if (row.style.display === "none") return;
+
+        let cells = row.querySelectorAll("th, td");
+
+        let rowData = Array.from(cells).map(cell => {
+            return '"' + cell.innerText.replace(/"/g, '""') + '"';
+        });
+
+        csv.push(rowData.join(","));
+    });
+
+    let blob = new Blob([csv.join("\n")], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "asset-report.csv";
+    link.click();
+
+    URL.revokeObjectURL(link.href);
+}
+
+// Report buttons
+function showReport(name) {
+
+    document.getElementById("reportMessage").innerText =
+        name + " selected. Connect this report to your database to display actual records.";
+}
+
+</script>
+
+</body>
+</html>
+{% endblock %}

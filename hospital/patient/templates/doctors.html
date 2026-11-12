@@ -1,0 +1,476 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Doctors - City Hospital</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5fafa;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        /* Page Banner */
+        .page-banner {
+            background: linear-gradient(120deg, #087f8c, #40bfc0);
+            color: white;
+            text-align: center;
+            padding: 55px 20px;
+        }
+
+        .page-banner h1 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .page-banner p {
+            font-size: 17px;
+        }
+
+        /* General Sections */
+        section {
+            padding: 50px 8%;
+        }
+
+        .section-title {
+            color: #087f8c;
+            font-size: 30px;
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .section-description {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        /* Search and Filter */
+        .doctor-controls {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 35px;
+        }
+
+        .doctor-controls input,
+        .doctor-controls select {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+            background: white;
+            min-width: 220px;
+        }
+
+        .doctor-controls input:focus,
+        .doctor-controls select:focus {
+            outline: 2px solid #40bfc0;
+            border-color: #087f8c;
+        }
+
+        /* Doctors Grid */
+        .doctors-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .doctor-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 3px 12px #ddd;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 18px #ccc;
+        }
+
+        .doctor-top {
+            background: #e5f6f5;
+            padding: 25px 15px 15px;
+        }
+
+        .doctor-avatar {
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid #40bfc0;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 55px;
+        }
+
+        .doctor-top h3 {
+            color: #087f8c;
+            font-size: 21px;
+        }
+
+        .specialization {
+            color: #555;
+            font-size: 14px;
+        }
+
+        .doctor-details {
+            padding: 20px;
+        }
+
+        .doctor-details p {
+            margin-bottom: 9px;
+            font-size: 14px;
+        }
+
+        .availability {
+            display: inline-block;
+            background: #e5f6e9;
+            color: #237a3b;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin: 5px 0 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #087f8c;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background: #05636d;
+        }
+
+        /* No Results */
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            color: #666;
+            grid-column: 1 / -1;
+        }
+
+        /* Appointment Banner */
+        .appointment {
+            background: #087f8c;
+            color: white;
+            text-align: center;
+        }
+
+        .appointment h2 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .appointment p {
+            margin-bottom: 20px;
+        }
+
+        .appointment .btn {
+            background: white;
+            color: #087f8c;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .doctors-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .doctors-container {
+                grid-template-columns: 1fr;
+            }
+
+            .doctor-controls {
+                flex-direction: column;
+            }
+
+            .doctor-controls input,
+            .doctor-controls select {
+                width: 100%;
+            }
+
+            .page-banner h1 {
+                font-size: 32px;
+            }
+
+            section {
+                padding: 35px 6%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Page Banner -->
+    <section class="page-banner">
+        <h1>Our Doctors</h1>
+        <p>Meet our medical team dedicated to your health and well-being.</p>
+    </section>
+
+    <!-- Doctors List -->
+    <section id="doctors">
+
+        <h2 class="section-title">Meet Our Medical Team</h2>
+
+        <p class="section-description">
+            Find a doctor based on your healthcare needs.
+        </p>
+
+        <!-- Search and Specialization Filter -->
+        <div class="doctor-controls">
+            <input
+                type="text"
+                id="doctorSearch"
+                placeholder="Search doctor by name..."
+                aria-label="Search doctors by name"
+            >
+
+            <select id="specializationFilter"
+                    aria-label="Filter by specialization">
+                <option value="all">All Specializations</option>
+                <option value="general medicine">General Medicine</option>
+                <option value="pediatrics">Pediatrics</option>
+                <option value="cardiology">Cardiology</option>
+                <option value="orthopedics">Orthopedics</option>
+                <option value="gynecology">Gynecology</option>
+                <option value="dermatology">Dermatology</option>
+            </select>
+        </div>
+
+        <div class="doctors-container" id="doctorsContainer">
+
+            <!-- Doctor 1 -->
+            <div class="doctor-card"
+                 data-name="john mathew"
+                 data-specialization="general medicine">
+
+                <div class="doctor-top">
+                    <div class="doctor-avatar">👨‍⚕️</div>
+                    <h3>Dr. John Mathew</h3>
+                    <p class="specialization">General Medicine</p>
+                </div>
+
+                <div class="doctor-details">
+                    <p><strong>Qualification:</strong> MBBS, MD</p>
+                    <p><strong>Experience:</strong> 12 years</p>
+                    <p><strong>Consultation:</strong> General health</p>
+                    <span class="availability">Availability to be confirmed</span>
+                    <br>
+                    <a href="index.html#contact" class="btn">
+                        Book Appointment
+                    </a>
+                </div>
+            </div>
+
+            <!-- Doctor 2 -->
+            <div class="doctor-card"
+                 data-name="anu thomas"
+                 data-specialization="pediatrics">
+
+                <div class="doctor-top">
+                    <div class="doctor-avatar">👩‍⚕️</div>
+                    <h3>Dr. Anu Thomas</h3>
+                    <p class="specialization">Pediatrics</p>
+                </div>
+
+                <div class="doctor-details">
+                    <p><strong>Qualification:</strong> MBBS, MD</p>
+                    <p><strong>Experience:</strong> 8 years</p>
+                    <p><strong>Consultation:</strong> Child healthcare</p>
+                    <span class="availability">Availability to be confirmed</span>
+                    <br>
+                    <a href="index.html#contact" class="btn">
+                        Book Appointment
+                    </a>
+                </div>
+            </div>
+
+            <!-- Doctor 3 -->
+            <div class="doctor-card"
+                 data-name="rahul kumar"
+                 data-specialization="cardiology">
+
+                <div class="doctor-top">
+                    <div class="doctor-avatar">👨‍⚕️</div>
+                    <h3>Dr. Rahul Kumar</h3>
+                    <p class="specialization">Cardiology</p>
+                </div>
+
+                <div class="doctor-details">
+                    <p><strong>Qualification:</strong> MBBS, DM</p>
+                    <p><strong>Experience:</strong> 10 years</p>
+                    <p><strong>Consultation:</strong> Heart health</p>
+                    <span class="availability">Availability to be confirmed</span>
+                    <br>
+                    <a href="index.html#contact" class="btn">
+                        Book Appointment
+                    </a>
+                </div>
+            </div>
+
+            <!-- Doctor 4 -->
+            <div class="doctor-card"
+                 data-name="meera nair"
+                 data-specialization="orthopedics">
+
+                <div class="doctor-top">
+                    <div class="doctor-avatar">👩‍⚕️</div>
+                    <h3>Dr. Meera Nair</h3>
+                    <p class="specialization">Orthopedics</p>
+                </div>
+
+                <div class="doctor-details">
+                    <p><strong>Qualification:</strong> MBBS, MS</p>
+                    <p><strong>Experience:</strong> 9 years</p>
+                    <p><strong>Consultation:</strong> Bone and joint care</p>
+                    <span class="availability">Availability to be confirmed</span>
+                    <br>
+                    <a href="index.html#contact" class="btn">
+                        Book Appointment
+                    </a>
+                </div>
+            </div>
+
+            <!-- Doctor 5 -->
+            <div class="doctor-card"
+                 data-name="priya menon"
+                 data-specialization="gynecology">
+
+                <div class="doctor-top">
+                    <div class="doctor-avatar">👩‍⚕️</div>
+                    <h3>Dr. Priya Menon</h3>
+                    <p class="specialization">Gynecology</p>
+                </div>
+
+                <div class="doctor-details">
+                    <p><strong>Qualification:</strong> MBBS, MS</p>
+                    <p><strong>Experience:</strong> 7 years</p>
+                    <p><strong>Consultation:</strong> Women's healthcare</p>
+                    <span class="availability">Availability to be confirmed</span>
+                    <br>
+                    <a href="index.html#contact" class="btn">
+                        Book Appointment
+                    </a>
+                </div>
+            </div>
+
+            <!-- Doctor 6 -->
+            <div class="doctor-card"
+                 data-name="arun joseph"
+                 data-specialization="dermatology">
+
+                <div class="doctor-top">
+                    <div class="doctor-avatar">👨‍⚕️</div>
+                    <h3>Dr. Arun Joseph</h3>
+                    <p class="specialization">Dermatology</p>
+                </div>
+
+                <div class="doctor-details">
+                    <p><strong>Qualification:</strong> MBBS, MD</p>
+                    <p><strong>Experience:</strong> 6 years</p>
+                    <p><strong>Consultation:</strong> Skin and hair care</p>
+                    <span class="availability">Availability to be confirmed</span>
+                    <br>
+                    <a href="index.html#contact" class="btn">
+                        Book Appointment
+                    </a>
+                </div>
+            </div>
+
+            <p class="no-results" id="noResults">
+                No doctors found. Try another name or specialization.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section class="appointment" id="appointment">
+        <h2>Need Help Finding a Doctor?</h2>
+        <p>
+            Contact City Hospital to enquire about doctors,
+            consultation timings, and appointments.
+        </p>
+        <a href="index.html#contact" class="btn">
+            Contact Our Hospital
+        </a>
+    </section>
+
+    <!-- Search and Filter Script -->
+    <script>
+        const searchInput = document.getElementById("doctorSearch");
+        const specializationFilter =
+            document.getElementById("specializationFilter");
+
+        const doctorCards = document.querySelectorAll(".doctor-card");
+        const noResults = document.getElementById("noResults");
+
+        function filterDoctors() {
+            const searchText = searchInput.value.toLowerCase().trim();
+            const selectedSpecialization =
+                specializationFilter.value.toLowerCase();
+
+            let visibleCount = 0;
+
+            doctorCards.forEach(function(card) {
+                const name = card.dataset.name.toLowerCase();
+                const specialization =
+                    card.dataset.specialization.toLowerCase();
+
+                const matchesName = name.includes(searchText);
+
+                const matchesSpecialization =
+                    selectedSpecialization === "all" ||
+                    specialization === selectedSpecialization;
+
+                if (matchesName && matchesSpecialization) {
+                    card.style.display = "";
+                    visibleCount++;
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
+            noResults.style.display =
+                visibleCount === 0 ? "block" : "none";
+        }
+
+        searchInput.addEventListener("input", filterDoctors);
+
+        specializationFilter.addEventListener(
+            "change",
+            filterDoctors
+        );
+    </script>
+
+</body>
+</html>
+{% endblock %}

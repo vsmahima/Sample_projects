@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asset Management Header</title>
+
+    <style>
+        .ams-header,
+        .ams-header * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        .ams-header {
+            width: 100%;
+            background: #173b65;
+            color: white;
+            padding: 0 7%;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+        }
+
+        .header-container {
+            min-height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .logo span {
+            color: #65c5e8;
+        }
+
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-menu a:hover {
+            color: #65c5e8;
+        }
+
+        .header-login {
+            background: white;
+            color: #173b65 !important;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: bold !important;
+        }
+
+        .header-login:hover {
+            background: #65c5e8;
+            color: white !important;
+        }
+
+        @media(max-width: 850px) {
+            .header-container {
+                flex-direction: column;
+                padding: 20px 0;
+            }
+
+            .nav-menu {
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+        }
+
+        @media(max-width: 500px) {
+            .logo {
+                font-size: 19px;
+            }
+
+            .nav-menu {
+                gap: 12px;
+            }
+
+            .nav-menu a {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="ams-header">
+        <div class="header-container">
+
+            <div class="logo">
+                ASSET <span>MANAGEMENT</span>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="{% url 'index' %}">Home</a>
+                <a href="{% url 'asset_registration' %}">Assets</a>
+                <a href="{% url 'asset_allocation' %}">Allocation</a>
+                <a href="{% url 'maintenence' %}">Maintenance</a>
+                <a href="{% url 'reports' %}">Reports</a>
+                <a href="{% url 'login' %}" class="header-login">Login</a>
+            </nav>
+
+        </div>
+    </header>
+
+</body>
+</html>

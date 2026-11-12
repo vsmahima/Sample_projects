@@ -1,0 +1,178 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AssetTrack Footer</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7fb;
+    }
+
+    .footer {
+      background: #12304a;
+      color: #ffffff;
+      padding: 40px 6% 20px;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.3fr;
+      gap: 30px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .footer h3 {
+      font-size: 18px;
+      margin-bottom: 15px;
+      color: #ffffff;
+    }
+
+    .footer h4 {
+      font-size: 15px;
+      margin-bottom: 15px;
+      color: #ffffff;
+    }
+
+    .footer p {
+      font-size: 13px;
+      line-height: 1.8;
+      color: #cbd5e1;
+      margin-bottom: 8px;
+    }
+
+    .footer ul {
+      list-style: none;
+    }
+
+    .footer ul li {
+      margin-bottom: 12px;
+    }
+
+    .footer a {
+      color: #cbd5e1;
+      text-decoration: none;
+      font-size: 13px;
+      transition: color 0.3s;
+    }
+
+    .footer a:hover {
+      color: #38bdf8;
+    }
+
+    .footer-logo {
+      color: #38bdf8;
+      font-weight: bold;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 30px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid #34516a;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      margin-bottom: 8px;
+      font-size: 12px;
+    }
+
+    .footer-legal {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 800px) {
+      .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 500px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+
+      .footer {
+        padding: 30px 6% 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <footer class="footer">
+    <div class="footer-container">
+
+      <div>
+        <div class="footer-logo">📦 AssetTrack</div>
+        <p>Asset Management System</p>
+        <p>
+          Manage, track, and allocate assets
+          efficiently with our centralized
+          asset management platform.
+        </p>
+      </div>
+
+      <div>
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.html">Dashboard</a></li>
+          <li><a href="assets.html">Asset Inventory</a></li>
+          <li><a href="employees.html">Employees</a></li>
+          <li><a href="allocation.html">Asset Allocation</a></li>
+          <li><a href="reports.html">Reports</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Support</h4>
+        <ul>
+          <li><a href="help.html">Help Center</a></li>
+          <li><a href="support.html">System Support</a></li>
+          <li><a href="contact.html">Contact Administrator</a></li>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms of Use</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4>Contact Information</h4>
+        <p>✉ support@assettrack.com</p>
+        <p>🕒 Monday – Friday</p>
+        <p>9:00 AM – 5:00 PM</p>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p>
+        &copy; 2026 AssetTrack.
+        All rights reserved.
+      </p>
+
+      <div class="footer-legal">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Use</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

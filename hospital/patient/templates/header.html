@@ -1,0 +1,96 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Header</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            background-color: #ffffff;
+            padding: 15px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px #dddddd;
+        }
+
+        .logo {
+            color: #087f8c;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333333;
+            margin: 0 12px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #087f8c;
+        }
+
+        .appointment {
+            background-color: #087f8c;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .appointment:hover {
+            background-color: #05636d;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 18px;
+                padding: 20px;
+            }
+
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            nav a {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">✚ kims</div>
+
+        <nav>
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'about' %}">About Us</a>
+            <a href="{% url 'services' %}">Services</a>
+            <a href="{% url 'doctors' %}">Doctors</a>
+            <a href="{% url 'contact' %}">Contact</a>
+        </nav>
+
+        <a href="{% url 'book_appoinment' %}" class="appointment">
+            Book Appointment
+        </a>
+    </header>
+
+</body>
+</html>
+
